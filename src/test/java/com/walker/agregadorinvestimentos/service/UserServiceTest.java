@@ -1,6 +1,7 @@
 package com.walker.agregadorinvestimentos.service;
 
 import com.walker.agregadorinvestimentos.Dto.CreateUserDto;
+import com.walker.agregadorinvestimentos.Dto.UpdateUserDto;
 import com.walker.agregadorinvestimentos.entity.User;
 import com.walker.agregadorinvestimentos.repository.UserRepository;
 import org.junit.jupiter.api.Assertions;
@@ -113,6 +114,31 @@ class UserServiceTest {
     }
 
     @Nested
+    class updateUserById{
+        @Test
+        void shouldUpdateUserByIdWhenUserExistsAndUsernameAndPasswordIsFilled(){
+            //Arrange:
+            var updateUserDto = new UpdateUserDto("newUsername","newPassword");
+
+            var user = new User(UUID.randomUUID(),"test","test@email.com","test123", Instant.now(),null);
+            doReturn(Optional.of(user)).when(userRepository).findById(uuidArgumentCaptor.capture());
+            doReturn(user).when(userRepository).save(userArgumentCaptor.capture());
+            //Act:
+            userService.updateUserById(user.getUserId().toString(),updateUserDto);
+            //Assert:
+            assertEquals(user.getUserId(),uuidArgumentCaptor.getValue());
+            var userCaptured = userArgumentCaptor.getValue();
+
+            assertEquals(user.getUsername(),userCaptured.getUsername());
+            assertEquals(user.getPassword(),userCaptured.getPassword());
+
+            verify(userRepository,times(1)).findById(uuidArgumentCaptor.getValue());
+            verify(userRepository,times(1)).save(user);
+        }
+
+    }
+
+    @Nested
     class deleteById{
         @Test
         void shouldDeleteUserWithSuccess(){
@@ -128,8 +154,20 @@ class UserServiceTest {
             assertEquals(userId,idList.get(0));
             assertEquals(userId,idList.get(1));
         }
-    }
 
+        @Test
+        void shouldNotDeleteUserWhenUserNotExists(){
+            //Arrange:
+            doReturn(false).when(userRepository).existsById(uuidArgumentCaptor.capture());
+            var userId = UUID.randomUUID();
+            //Act:
+            userService.deleteById(userId.toString());
+            //Assert:
+            assertEquals(userId,uuidArgumentCaptor.getValue());
+            verify(userRepository,times(1)).existsById(uuidArgumentCaptor.getValue());
+        }
+
+    }
 
 
 
