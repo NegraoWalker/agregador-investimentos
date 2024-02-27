@@ -1,10 +1,9 @@
 package com.walker.agregadorinvestimentos.service;
 
-import com.walker.agregadorinvestimentos.Dto.CreateUserDto;
-import com.walker.agregadorinvestimentos.Dto.UpdateUserDto;
+import com.walker.agregadorinvestimentos.dto.CreateUserDto;
+import com.walker.agregadorinvestimentos.dto.UpdateUserDto;
 import com.walker.agregadorinvestimentos.entity.User;
 import com.walker.agregadorinvestimentos.repository.UserRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -168,8 +167,5 @@ class UserServiceTest {
         }
 
     }
-
-
-
 
 }

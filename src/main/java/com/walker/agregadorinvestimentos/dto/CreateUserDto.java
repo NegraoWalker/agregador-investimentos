@@ -1,4 +1,4 @@
-package com.walker.agregadorinvestimentos.Dto;
+package com.walker.agregadorinvestimentos.dto;
 
 public record CreateUserDto(String username, String email, String password) {
 }

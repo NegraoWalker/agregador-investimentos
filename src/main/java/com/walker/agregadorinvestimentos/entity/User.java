@@ -5,6 +5,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +27,9 @@ public class User {
     private Instant creationTimestamp;
     @UpdateTimestamp
     private Instant updateTimestamp;
+
+    @OneToMany(mappedBy = "user") //um usuário pode ter várias contas -> relacionamento um para muitos; indicando que o relacionamento foi feito pelo campo user na tabela tb_accounts
+    private List<Account> accounts;
 
     //Construtores:
     public User() {
@@ -88,4 +92,14 @@ public class User {
     public void setUpdateTimestamp(Instant updateTimestamp) {
         this.updateTimestamp = updateTimestamp;
     }
+
+    public List<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(List<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+
 }

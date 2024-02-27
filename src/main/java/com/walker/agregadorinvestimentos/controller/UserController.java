@@ -1,7 +1,7 @@
 package com.walker.agregadorinvestimentos.controller;
 
-import com.walker.agregadorinvestimentos.Dto.CreateUserDto;
-import com.walker.agregadorinvestimentos.Dto.UpdateUserDto;
+import com.walker.agregadorinvestimentos.dto.CreateUserDto;
+import com.walker.agregadorinvestimentos.dto.UpdateUserDto;
 import com.walker.agregadorinvestimentos.entity.User;
 import com.walker.agregadorinvestimentos.service.UserService;
 import org.springframework.http.ResponseEntity;
